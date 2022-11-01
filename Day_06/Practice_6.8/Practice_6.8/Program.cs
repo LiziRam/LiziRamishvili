@@ -6,40 +6,39 @@ namespace Practice_6._8
     {
         static void Main(string[] args)
         {
-            int input = getInput();
-            string res = getCoefficients(input);
+            int input = GetInput();
+            string res = GetCoefficients(input);
             Console.WriteLine(res);
+        }
 
-            static int getInput()
-            {
-                Console.Write("Enter a positive number: ");
-                return Convert.ToInt32(Console.ReadLine());
-            }
+        private static int GetInput()
+        {
+            Console.Write("Enter a positive number: ");
+            return Convert.ToInt32(Console.ReadLine());
+        }
 
-            static string getCoefficients(int num)
+        private static string GetCoefficients(int num)
+        {
+            int keeper = num;
+            string s = "";
+            int remainder;
+            int currCoefficient = 0;
+            while (num > 0)
             {
-                int keeper = num;
-                string s = "";
-                int remainder;
-                int currCoefficient = 0;
-                while(num > 0)
+                remainder = num % 10;
+                if (num == keeper)
                 {
-                    remainder = num % 10;
-                    if (num == keeper)
-                    {
-                        s = remainder + " * 10^" + currCoefficient;
-                    }
-                    else
-                    {
-                        s = remainder + " * 10^" + currCoefficient + " + " + s;
-                    }
-                    num = num / 10;
-                    currCoefficient++;
+                    s = remainder + " * 10^" + currCoefficient;
                 }
-                s = keeper + " = " + s;
-                return s;
+                else
+                {
+                    s = remainder + " * 10^" + currCoefficient + " + " + s;
+                }
+                num = num / 10;
+                currCoefficient++;
             }
-
+            s = keeper + " = " + s;
+            return s;
         }
     }
 }

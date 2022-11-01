@@ -6,38 +6,38 @@ namespace Practice_6._6
     {
         static void Main(string[] args)
         {
-            char[] arr = makeArray();
+            char[] arr = MakeArray();
             char currChar = 'a';
             //char currChar = 'z';
 
-            Console.WriteLine("'" + currChar + "' shegvxvda " + occurance(arr, currChar) + "-jer");
-            
-            static char[] makeArray()
-            {
-                Console.Write("Enter size of array: ");
-                int input = Convert.ToInt32(Console.ReadLine());
-                char[] arr = new char[input];
+            Console.WriteLine("'" + currChar + "' shegvxvda " + Occurance(arr, currChar) + "-jer");
+        }
 
-                for (int i = 0; i < input; i++)
-                {
-                    Console.Write("Enter character for index " + i + ": ");
-                    arr[i] = Convert.ToChar(Console.ReadLine());
-                }
-                return arr;
-            }
+        private static char[] MakeArray()
+        {
+            Console.Write("Enter size of array: ");
+            int input = Convert.ToInt32(Console.ReadLine());
+            char[] arr = new char[input];
 
-            static int occurance(char[] arr, char c)
+            for (int i = 0; i < input; i++)
             {
-                int occur = 0;
-                for(int i = 0; i < arr.Length; i++)
-                {
-                    if(c == arr[i])
-                    {
-                        occur++;
-                    }
-                }
-                return occur;
+                Console.Write("Enter character for index " + i + ": ");
+                arr[i] = Convert.ToChar(Console.ReadLine());
             }
+            return arr;
+        }
+
+        private static int Occurance(char[] arr, char c)
+        {
+            int occur = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (c == arr[i])
+                {
+                    occur++;
+                }
+            }
+            return occur;
         }
     }
 }
