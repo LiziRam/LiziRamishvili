@@ -1,15 +1,15 @@
 ﻿using System;
 namespace Practice_12._1
 {
+    public enum Statuses
+    {
+        PowMustBeaPositiveOrZero,
+        Success,
+        ParametersAreEqual,
+    }
+
     public static class Math
     {
-        public enum Statuses
-        {
-            PowMustBeaPositiveOrZero,
-            Success,
-            ParametersAreEqual,
-        }
-
         public static int Pow(int n1, int pow, out Statuses currStatus)
         {
             if(pow < 0)
