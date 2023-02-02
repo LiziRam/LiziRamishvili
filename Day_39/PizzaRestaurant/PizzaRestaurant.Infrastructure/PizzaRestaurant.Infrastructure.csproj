@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PizzaRestaurant.Domain\PizzaRestaurant.Domain.csproj" />
+    <ProjectReference Include="..\PizzaRestaurant.Persistence\PizzaRestaurant.Persistence.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Addresses\" />
+    <None Remove="Orders\" />
+    <None Remove="Users\" />
+    <None Remove="RankHistories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Addresses\" />
+    <Folder Include="Orders\" />
+    <Folder Include="Users\" />
+    <Folder Include="RankHistories\" />
+  </ItemGroup>
+</Project>

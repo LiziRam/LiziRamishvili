@@ -1,0 +1,24 @@
+Message: No such object can be found 
+Source: PizzaRestaurant.Application 
+StackTrace:    at PizzaRestaurant.Application.Pizzas.PizzaService.GetAsync(CancellationToken cancellationToken, Int32 id) in /Users/liziramishvili/Desktop/Day_40/PizzaRestaurant/PizzaRestaurant.Application/Pizzas/PizzaService.cs:line 35
+   at PizzaRestaurant.API.Controllers.PizzaController.Get(CancellationToken cancellationToken, Int32 id) in /Users/liziramishvili/Desktop/Day_40/PizzaRestaurant/PizzaRestaurant.API/Controllers/PizzaController.cs:line 34
+   at lambda_method19(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at PizzaRestaurant.API.Infrastructure.Middlewares.CultureMiddleware.Invoke(HttpContext context) in /Users/liziramishvili/Desktop/Day_40/PizzaRestaurant/PizzaRestaurant.API/Infrastructure/Middlewares/CultureMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at PizzaRestaurant.API.Infrastructure.Middlewares.RequestResponseMiddleware.Invoke(HttpContext context) in /Users/liziramishvili/Desktop/Day_40/PizzaRestaurant/PizzaRestaurant.API/Infrastructure/Middlewares/RequestResponseMiddleware.cs:line 29
+   at PizzaRestaurant.API.Infrastructure.Middlewares.RequestResponseMiddleware.Invoke(HttpContext context) in /Users/liziramishvili/Desktop/Day_40/PizzaRestaurant/PizzaRestaurant.API/Infrastructure/Middlewares/RequestResponseMiddleware.cs:line 42
+   at PizzaRestaurant.API.Infrastructure.Middlewares.ExceptionHandlingMiddleware.Invoke(HttpContext context) in /Users/liziramishvili/Desktop/Day_40/PizzaRestaurant/PizzaRestaurant.API/Infrastructure/Middlewares/ExceptionHandlingMiddleware.cs:line 23 
+

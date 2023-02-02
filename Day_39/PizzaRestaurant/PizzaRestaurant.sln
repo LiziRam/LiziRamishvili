@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.2
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaRestaurant.API", "PizzaRestaurant.API\PizzaRestaurant.API.csproj", "{14BE3E1B-414E-432A-BAAB-E076D7CA3D85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CB6839A1-E42E-46A7-BE7B-EBC75FE71771}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{64A0BF3F-BD83-4416-BA44-84F5358308F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{61C42E51-2A6B-46AB-925D-68D90104B2FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{411726B3-FFC4-4720-8726-31BDA79A283B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaRestaurant.Application", "PizzaRestaurant.Application\PizzaRestaurant.Application.csproj", "{47A25B30-A610-4E2B-BA1D-841E35EC72F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaRestaurant.Infrastructure", "PizzaRestaurant.Infrastructure\PizzaRestaurant.Infrastructure.csproj", "{F435DA1F-5EE8-41C9-9AAF-9650ECB68084}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaRestaurant.Domain", "PizzaRestaurant.Domain\PizzaRestaurant.Domain.csproj", "{B78BAD5E-F28A-4186-A5EC-077B947F1C67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaRestaurant.Persistence", "PizzaRestaurant.Persistence\PizzaRestaurant.Persistence.csproj", "{44389231-42FC-4ADF-B82E-F20F65BF0DDE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14BE3E1B-414E-432A-BAAB-E076D7CA3D85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14BE3E1B-414E-432A-BAAB-E076D7CA3D85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14BE3E1B-414E-432A-BAAB-E076D7CA3D85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14BE3E1B-414E-432A-BAAB-E076D7CA3D85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47A25B30-A610-4E2B-BA1D-841E35EC72F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47A25B30-A610-4E2B-BA1D-841E35EC72F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47A25B30-A610-4E2B-BA1D-841E35EC72F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47A25B30-A610-4E2B-BA1D-841E35EC72F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F435DA1F-5EE8-41C9-9AAF-9650ECB68084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F435DA1F-5EE8-41C9-9AAF-9650ECB68084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F435DA1F-5EE8-41C9-9AAF-9650ECB68084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F435DA1F-5EE8-41C9-9AAF-9650ECB68084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B78BAD5E-F28A-4186-A5EC-077B947F1C67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B78BAD5E-F28A-4186-A5EC-077B947F1C67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B78BAD5E-F28A-4186-A5EC-077B947F1C67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B78BAD5E-F28A-4186-A5EC-077B947F1C67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44389231-42FC-4ADF-B82E-F20F65BF0DDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44389231-42FC-4ADF-B82E-F20F65BF0DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44389231-42FC-4ADF-B82E-F20F65BF0DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44389231-42FC-4ADF-B82E-F20F65BF0DDE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {626A184C-8C1B-44D5-B105-D218EE84DECA}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{14BE3E1B-414E-432A-BAAB-E076D7CA3D85} = {411726B3-FFC4-4720-8726-31BDA79A283B}
+		{64A0BF3F-BD83-4416-BA44-84F5358308F3} = {CB6839A1-E42E-46A7-BE7B-EBC75FE71771}
+		{61C42E51-2A6B-46AB-925D-68D90104B2FC} = {CB6839A1-E42E-46A7-BE7B-EBC75FE71771}
+		{411726B3-FFC4-4720-8726-31BDA79A283B} = {CB6839A1-E42E-46A7-BE7B-EBC75FE71771}
+		{47A25B30-A610-4E2B-BA1D-841E35EC72F2} = {64A0BF3F-BD83-4416-BA44-84F5358308F3}
+		{F435DA1F-5EE8-41C9-9AAF-9650ECB68084} = {61C42E51-2A6B-46AB-925D-68D90104B2FC}
+		{B78BAD5E-F28A-4186-A5EC-077B947F1C67} = {64A0BF3F-BD83-4416-BA44-84F5358308F3}
+		{44389231-42FC-4ADF-B82E-F20F65BF0DDE} = {61C42E51-2A6B-46AB-925D-68D90104B2FC}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.inheritsSet = null
+		$1.scope = application/xml
+		$0.XmlFormattingPolicy = $2
+		$2.scope = application/xml
+		$0.TextStylePolicy = $3
+		$3.inheritsSet = null
+		$3.scope = text/x-json
+		$0.TextStylePolicy = $4
+		$4.inheritsSet = null
+		$4.scope = text/x-web
+		$0.TextStylePolicy = $5
+		$5.inheritsSet = null
+		$5.scope = text/x-vs
+		$0.StandardHeader = $6
+	EndGlobalSection
+EndGlobal
