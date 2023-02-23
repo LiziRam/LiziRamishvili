@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Users\" />
+    <None Remove="Todos\" />
+    <None Remove="Subtasks\" />
+    <None Remove="Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Users\" />
+    <Folder Include="Todos\" />
+    <Folder Include="Subtasks\" />
+    <Folder Include="Base\" />
+  </ItemGroup>
+</Project>
