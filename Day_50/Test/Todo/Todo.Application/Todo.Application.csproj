@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Users\" />
+    <None Remove="Todos\" />
+    <None Remove="Subtasks\" />
+    <None Remove="Users\Requests\" />
+    <None Remove="Users\Responses\" />
+    <None Remove="Users\Repositories\" />
+    <None Remove="Todos\Requests\" />
+    <None Remove="Todos\Responses\" />
+    <None Remove="Todos\Repositories\" />
+    <None Remove="Subtasks\Requests\" />
+    <None Remove="Subtasks\Responses\" />
+    <None Remove="Subtasks\Repositories\" />
+    <None Remove="ExceptionHandling\" />
+    <None Remove="ExceptionHandling\CustomExceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Users\" />
+    <Folder Include="Subtasks\" />
+    <Folder Include="Users\Requests\" />
+    <Folder Include="Users\Responses\" />
+    <Folder Include="Users\Repositories\" />
+    <Folder Include="Todos\Responses\" />
+    <Folder Include="Todos\Repositories\" />
+    <Folder Include="Subtasks\Requests\" />
+    <Folder Include="Subtasks\Responses\" />
+    <Folder Include="Subtasks\Repositories\" />
+    <Folder Include="ExceptionHandling\" />
+    <Folder Include="ExceptionHandling\CustomExceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Todo.Domain\Todo.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="Mapster.Core" Version="1.2.0" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="7.0.3" />
+  </ItemGroup>
+</Project>

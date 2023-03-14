@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="User\" />
+    <None Remove="Pizza\Requests\" />
+    <None Remove="Pizza\Responses\" />
+    <None Remove="Address\Requests\" />
+    <None Remove="Address\Responses\" />
+    <None Remove="Order\Requests\" />
+    <None Remove="Order\Responses\" />
+    <None Remove="RankHistory\Requests\" />
+    <None Remove="RankHistory\Responses\" />
+    <None Remove="User\Requests\" />
+    <None Remove="User\Responses\" />
+    <None Remove="Mapster" />
+    <None Remove="Mapster.Core" />
+    <None Remove="ExceptionHandling\" />
+    <None Remove="Microsoft.AspNetCore.Mvc.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Users\" />
+    <Folder Include="Pizzas\Requests\" />
+    <Folder Include="Pizzas\Responses\" />
+    <Folder Include="Addresses\Requests\" />
+    <Folder Include="Addresses\Responses\" />
+    <Folder Include="Orders\Requests\" />
+    <Folder Include="Orders\Responses\" />
+    <Folder Include="RankHistories\Requests\" />
+    <Folder Include="RankHistories\Responses\" />
+    <Folder Include="Users\Requests\" />
+    <Folder Include="Users\Responses\" />
+    <Folder Include="ExceptionHandling\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PizzaRestaurant.Domain\PizzaRestaurant.Domain.csproj" />
+    <ProjectReference Include="..\PizzaRestaurant.Persistence\PizzaRestaurant.Persistence.csproj" />
+    <ProjectReference Include="..\PizzaRestaurant.Infrastructure\PizzaRestaurant.Infrastructure.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="Mapster.Core" Version="1.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+  </ItemGroup>
+</Project>

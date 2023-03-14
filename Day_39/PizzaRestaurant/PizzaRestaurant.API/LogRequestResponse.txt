@@ -1,0 +1,1186 @@
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /swagger/index.html
+IsSecured = True
+QueryString = 
+RequestBody = 
+Time = 02.02.2023 06:40:31
+RESPONSE INFORMATION: 
+ResponseBody = <!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Swagger UI</title>
+    <link rel="stylesheet" type="text/css" href="./swagger-ui.css">
+    <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
+    <style>
+
+        html {
+            box-sizing: border-box;
+            overflow: -moz-scrollbars-vertical;
+            overflow-y: scroll;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            margin: 0;
+            background: #fafafa;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="swagger-ui"></div>
+
+    <!-- Workaround for https://github.com/swagger-api/swagger-editor/issues/1371 -->
+    <script>
+        if (window.navigator.userAgent.indexOf("Edge") > -1) {
+            console.log("Removing native Edge fetch in favor of swagger-ui's polyfill")
+            window.fetch = undefined;
+        }
+    </script>
+
+    <script src="./swagger-ui-bundle.js"></script>
+    <script src="./swagger-ui-standalone-preset.js"></script>
+    <script>
+        /* Source: https://gist.github.com/lamberta/3768814
+         * Parse a string function definition and return a function object. Does not use eval.
+         * @param {string} str
+         * @return {function}
+         *
+         * Example:
+         *  var f = function (x, y) { return x * y; };
+         *  var g = parseFunction(f.toString());
+         *  g(33, 3); //=> 99
+         */
+        function parseFunction(str) {
+            if (!str) return void (0);
+
+            var fn_body_idx = str.indexOf('{'),
+                fn_body = str.substring(fn_body_idx + 1, str.lastIndexOf('}')),
+                fn_declare = str.substring(0, fn_body_idx),
+                fn_params = fn_declare.substring(fn_declare.indexOf('(') + 1, fn_declare.lastIndexOf(')')),
+                args = fn_params.split(',');
+
+            args.push(fn_body);
+
+            function Fn() {
+                return Function.apply(this, args);
+            }
+            Fn.prototype = Function.prototype;
+
+            return new Fn();
+        }
+
+        window.onload = function () {
+            var configObject = JSON.parse('{"urls":[{"url":"v1/swagger.json","name":"PizzaRestaurant.API v1"}],"deepLinking":false,"persistAuthorization":false,"displayOperationId":false,"defaultModelsExpandDepth":1,"defaultModelExpandDepth":1,"defaultModelRendering":"example","displayRequestDuration":false,"docExpansion":"list","showExtensions":false,"showCommonExtensions":false,"supportedSubmitMethods":["get","put","post","delete","options","head","patch","trace"],"tryItOutEnabled":false}');
+            var oauthConfigObject = JSON.parse('{"scopeSeparator":" ","scopes":[],"useBasicAuthenticationWithAccessCodeGrant":false,"usePkceWithAuthorizationCodeGrant":false}');
+
+            // Workaround for https://github.com/swagger-api/swagger-ui/issues/5945
+            configObject.urls.forEach(function (item) {
+                if (item.url.startsWith("http") || item.url.startsWith("/")) return;
+                item.url = window.location.href.replace("index.html", item.url).split('#')[0];
+            });
+
+            // If validatorUrl is not explicitly provided, disable the feature by setting to null
+            if (!configObject.hasOwnProperty("validatorUrl"))
+                configObject.validatorUrl = null
+
+            // If oauth2RedirectUrl isn't specified, use the built-in default
+            if (!configObject.hasOwnProperty("oauth2RedirectUrl"))
+                configObject.oauth2RedirectUrl = (new URL("oauth2-redirect.html", window.location.href)).href;
+
+            // Apply mandatory parameters
+            configObject.dom_id = "#swagger-ui";
+            configObject.presets = [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset];
+            configObject.layout = "StandaloneLayout";
+
+            // Parse and add interceptor functions
+            var interceptors = JSON.parse('{"RequestInterceptorFunction":null,"ResponseInterceptorFunction":null}');
+            if (interceptors.RequestInterceptorFunction)
+                configObject.requestInterceptor = parseFunction(interceptors.RequestInterceptorFunction);
+            if (interceptors.ResponseInterceptorFunction)
+                configObject.responseInterceptor = parseFunction(interceptors.ResponseInterceptorFunction);
+
+            // Begin Swagger UI call region
+
+            const ui = SwaggerUIBundle(configObject);
+
+            ui.initOAuth(oauthConfigObject);
+
+            // End Swagger UI call region
+
+            window.ui = ui
+        }
+    </script>
+</body>
+</html>
+
+Time = 02.02.2023 06:40:31
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /swagger/v1/swagger.json
+IsSecured = True
+QueryString = 
+RequestBody = 
+Time = 02.02.2023 06:40:31
+RESPONSE INFORMATION: 
+ResponseBody = {
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Pizza Restaurant Api",
+    "description": "Api to manage Pizza Customers and Orders"
+  },
+  "paths": {
+    "/api/Address/{id}": {
+      "get": {
+        "tags": [
+          "Address"
+        ],
+        "summary": "Get a specific Address with Id",
+        "description": "IDs that are in the starter DB: 1, 2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Address"
+        ],
+        "summary": "Update an Address with Id",
+        "description": "Note that AddressId will be generated and kept in the DB.\r\nYou can see this address's Id in the united data,\r\nwhich is approachable by getting all data (GET without Id). \r\n \r\n    PUT /Address\r\n    {\r\n        \"userId\": 2,\r\n        \"city\": \"ქუთაისი\",\r\n        \"country\": \"საქართველო\",\r\n        \"region\": \"იმერეთი\",\r\n        \"description\": \"მელიქიშვილის 23\"\r\n    }\r\nIDs that are in the starter DB: 1, 2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Address"
+        ],
+        "summary": "Delete an Address with Id",
+        "description": "IDs that are in the starter DB: 1, 2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Address": {
+      "get": {
+        "tags": [
+          "Address"
+        ],
+        "summary": "Get all Addresses",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressResponseModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressResponseModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Address"
+        ],
+        "summary": "Create an Address",
+        "description": "Note that AddressId will be generated and kept in the DB.\r\nYou can see this address's Id in the united data,\r\nwhich is approachable by getting all data (GET without Id). \r\n \r\n    POST /Address\r\n    {\r\n        \"userId\": 1,\r\n        \"city\": \"ბათუმი\",\r\n        \"country\": \"საქართველო\",\r\n        \"region\": \"აჭარა\",\r\n        \"description\": \"გამსახურდიას 9\"\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Order/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get a specific Order with Id",
+        "description": "IDs that are in the starter DB: 1, 2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Order": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get all Orders",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderResponseModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderResponseModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Create an Order",
+        "description": "Note that OrderId will be generated and kept in the DB.\r\nYou can see this order's Id in the united data,\r\nwhich is approachable by getting all data (GET without Id). \r\n \r\n    POST /Address\r\n    {\r\n        \"userId\": 1,\r\n        \"addressId\": 1,\r\n        \"pizzaId\": 2\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Pizza/{id}": {
+      "get": {
+        "tags": [
+          "Pizza"
+        ],
+        "summary": "Get a specific Pizza with Id",
+        "description": "IDs that are in the starter DB: 1, 2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Pizza"
+        ],
+        "summary": "Update a Pizza with Id",
+        "description": "Note that PizzaId will be generated and kept in the DB.\r\nYou can see this pizza's Id in the united data,\r\nwhich is approachable by getting all data (GET without Id). \r\n \r\n    PUT /Pizza\r\n    {\r\n        \"name\": \"New Pepperoni\",\r\n        \"price\": 14,\r\n        \"description\": \"Double salami\",\r\n        \"caloryCount\": 800\r\n    }\r\nIDs that are in the starter DB: 1, 2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PizzaRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PizzaRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PizzaRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Pizza"
+        ],
+        "summary": "Delete a Pizza with Id",
+        "description": "IDs that are in the starter DB: 1, 2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Pizza": {
+      "get": {
+        "tags": [
+          "Pizza"
+        ],
+        "summary": "Get all Pizzas",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PizzaResponseModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PizzaResponseModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PizzaResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Pizza"
+        ],
+        "summary": "Create a Pizza",
+        "description": "Note that PizzaId will be generated and kept in the DB.\r\nYou can see this pizza's Id in the united data,\r\nwhich is approachable by getting all data (GET without Id). \r\n \r\n    POST /Pizza\r\n    {\r\n        \"name\": \"Pineapple Pizza\",\r\n        \"price\": 14.5,\r\n        \"description\": \"Hawaiian pizza\",\r\n        \"caloryCount\": 600\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PizzaRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PizzaRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PizzaRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/RankHistory/{id}": {
+      "get": {
+        "tags": [
+          "RankHistory"
+        ],
+        "summary": "Get a specific Rank with Id",
+        "description": "IDs that are in the starter DB: 1, 2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/RankHistory": {
+      "get": {
+        "tags": [
+          "RankHistory"
+        ],
+        "summary": "Get all Ranks",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RankHistoryResponseModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RankHistoryResponseModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RankHistoryResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "RankHistory"
+        ],
+        "summary": "Create a Ranking",
+        "description": "Note that RankId will be generated and kept in the DB.\r\nYou can see this ranks's Id in the united data,\r\nwhich is approachable by getting all data (GET without Id). \r\n \r\n    POST /Address\r\n    {\r\n        \"userId\": 1,\r\n        \"pizzaId\": 1,\r\n        \"rank\": 8\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RankHistoryRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RankHistoryRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RankHistoryRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/User/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get a specific User with Id",
+        "description": "IDs that are in the starter DB: 1, 2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update a User with Id",
+        "description": "Note that UserId will be generated and kept in the DB.\r\nYou can see this users's Id in the united data,\r\nwhich is approachable by getting all data (GET without Id). \r\n \r\n    PUT /User\r\n    {\r\n       \"firstName\": \"თეკლა\",\r\n       \"lastName\": \"ვარდოსანიძე\",\r\n       \"email\": \"tvard23@tbc.ge\",\r\n       \"phoneNumber\": \"577896351\",\r\n       \"address\": {\r\n                \"userId\": 0,\r\n                \"city\": \"თელავი\",\r\n                \"country\": \"საქართველო\",\r\n                \"region\": \"კახეთი\",\r\n                \"description\": \"ჭავჭავაძის 2\"\r\n       }\r\n    }\r\nIDs that are in the starter DB: 1, 2.\r\nuserId field within Address will change automatically according to the User who is the owner.\r\nTherefore, it does not matter what number will be entered in this field.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delete a User with Id",
+        "description": "IDs that are in the starter DB: 1, 2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/User": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get all Users",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserResponseModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserResponseModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Create a User",
+        "description": "Note that UserId will be generated and kept in the DB.\r\nYou can see this user's Id in the united data,\r\nwhich is approachable by getting all data (GET without Id). \r\n \r\n    POST /User\r\n    {\r\n       \"firstName\": \"მარიამ\",\r\n       \"lastName\": \"ნოზაძე\",\r\n       \"email\": \"mnoza23@tbc.ge\",\r\n       \"phoneNumber\": \"599234951\",\r\n       \"address\": {\r\n                \"userId\": 0,\r\n                \"city\": \"თელავი\",\r\n                \"country\": \"საქართველო\",\r\n                \"region\": \"კახეთი\",\r\n                \"description\": \"წერეთლის 7\"\r\n       }\r\n    }\r\nuserId field within Address will change automatically according to the User who is the owner.\r\nTherefore, it does not matter what number will be entered in this field.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddressRequestModel": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddressResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderRequestModel": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "addressId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pizzaId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "addressId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pizzaId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PizzaRequestModel": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "caloryCount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PizzaResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "caloryCount": {
+            "type": "number",
+            "format": "double"
+          },
+          "rank": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RankHistoryRequestModel": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pizzaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rank": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RankHistoryResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pizzaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rank": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserRequestModel": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "$ref": "#/components/schemas/AddressRequestModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressResponseModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
+Time = 02.02.2023 06:40:32
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = POST
+Path = /api/User
+IsSecured = True
+QueryString = 
+RequestBody = {
+ "firstName": "მარიამ",
+   "lastName": "ნოზაძე",
+   "email": "mnoza23@tbc.ge",
+   "phoneNumber": "599234951",
+   "address": {
+            "userId": 0,
+            "city": "თელავი",
+            "country": "საქართველო",
+            "region": "კახეთი",
+            "description": "წერეთლის 7"
+  }
+}
+Time = 02.02.2023 06:40:56
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 02.02.2023 06:40:59
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /api/Pizza/4
+IsSecured = True
+QueryString = 
+RequestBody = 
+Time = 02.02.2023 06:41:36
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 02.02.2023 06:41:37

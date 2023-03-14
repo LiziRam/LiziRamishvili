@@ -1,0 +1,1316 @@
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /swagger/index.html
+IsSecured = True
+QueryString = 
+RequestBody = 
+Time = 2/21/2023 10:51:53 AM
+RESPONSE INFORMATION: 
+ResponseBody = <!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Swagger UI</title>
+    <link rel="stylesheet" type="text/css" href="./swagger-ui.css">
+    <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
+    <style>
+
+        html {
+            box-sizing: border-box;
+            overflow: -moz-scrollbars-vertical;
+            overflow-y: scroll;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            margin: 0;
+            background: #fafafa;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="swagger-ui"></div>
+
+    <!-- Workaround for https://github.com/swagger-api/swagger-editor/issues/1371 -->
+    <script>
+        if (window.navigator.userAgent.indexOf("Edge") > -1) {
+            console.log("Removing native Edge fetch in favor of swagger-ui's polyfill")
+            window.fetch = undefined;
+        }
+    </script>
+
+    <script src="./swagger-ui-bundle.js"></script>
+    <script src="./swagger-ui-standalone-preset.js"></script>
+    <script>
+        /* Source: https://gist.github.com/lamberta/3768814
+         * Parse a string function definition and return a function object. Does not use eval.
+         * @param {string} str
+         * @return {function}
+         *
+         * Example:
+         *  var f = function (x, y) { return x * y; };
+         *  var g = parseFunction(f.toString());
+         *  g(33, 3); //=> 99
+         */
+        function parseFunction(str) {
+            if (!str) return void (0);
+
+            var fn_body_idx = str.indexOf('{'),
+                fn_body = str.substring(fn_body_idx + 1, str.lastIndexOf('}')),
+                fn_declare = str.substring(0, fn_body_idx),
+                fn_params = fn_declare.substring(fn_declare.indexOf('(') + 1, fn_declare.lastIndexOf(')')),
+                args = fn_params.split(',');
+
+            args.push(fn_body);
+
+            function Fn() {
+                return Function.apply(this, args);
+            }
+            Fn.prototype = Function.prototype;
+
+            return new Fn();
+        }
+
+        window.onload = function () {
+            var configObject = JSON.parse('{"urls":[{"url":"v1/swagger.json","name":"Todo.API v1"}],"deepLinking":false,"persistAuthorization":false,"displayOperationId":false,"defaultModelsExpandDepth":1,"defaultModelExpandDepth":1,"defaultModelRendering":"example","displayRequestDuration":false,"docExpansion":"list","showExtensions":false,"showCommonExtensions":false,"supportedSubmitMethods":["get","put","post","delete","options","head","patch","trace"],"tryItOutEnabled":false}');
+            var oauthConfigObject = JSON.parse('{"scopeSeparator":" ","scopes":[],"useBasicAuthenticationWithAccessCodeGrant":false,"usePkceWithAuthorizationCodeGrant":false}');
+
+            // Workaround for https://github.com/swagger-api/swagger-ui/issues/5945
+            configObject.urls.forEach(function (item) {
+                if (item.url.startsWith("http") || item.url.startsWith("/")) return;
+                item.url = window.location.href.replace("index.html", item.url).split('#')[0];
+            });
+
+            // If validatorUrl is not explicitly provided, disable the feature by setting to null
+            if (!configObject.hasOwnProperty("validatorUrl"))
+                configObject.validatorUrl = null
+
+            // If oauth2RedirectUrl isn't specified, use the built-in default
+            if (!configObject.hasOwnProperty("oauth2RedirectUrl"))
+                configObject.oauth2RedirectUrl = (new URL("oauth2-redirect.html", window.location.href)).href;
+
+            // Apply mandatory parameters
+            configObject.dom_id = "#swagger-ui";
+            configObject.presets = [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset];
+            configObject.layout = "StandaloneLayout";
+
+            // Parse and add interceptor functions
+            var interceptors = JSON.parse('{"RequestInterceptorFunction":null,"ResponseInterceptorFunction":null}');
+            if (interceptors.RequestInterceptorFunction)
+                configObject.requestInterceptor = parseFunction(interceptors.RequestInterceptorFunction);
+            if (interceptors.ResponseInterceptorFunction)
+                configObject.responseInterceptor = parseFunction(interceptors.ResponseInterceptorFunction);
+
+            // Begin Swagger UI call region
+
+            const ui = SwaggerUIBundle(configObject);
+
+            ui.initOAuth(oauthConfigObject);
+
+            // End Swagger UI call region
+
+            window.ui = ui
+        }
+    </script>
+</body>
+</html>
+
+Time = 2/21/2023 10:51:54 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /swagger/v1/swagger.json
+IsSecured = True
+QueryString = 
+RequestBody = 
+Time = 2/21/2023 10:51:54 AM
+RESPONSE INFORMATION: 
+ResponseBody = {
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Todo List Api",
+    "description": "Api to manage tasks and subtasks",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/ToDo": {
+      "post": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Create a ToDo item for your User",
+        "description": "Example:\r\n\r\n    POST /ToDo\r\n    {\r\n        \"title\": \"Task1\",\r\n        \"targetCompletionDate\": \"2023-02-22T10:52:04.943Z\",\r\n        \"subtasks\": [\r\n            {\r\n                \"title\": \"Subtask1\"\r\n            }\r\n        ]\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToDoRequestModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToDoRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToDoRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToDoRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Get all ToDos of your User",
+        "description": "You can filter ToDos by Status. If you don't choose any, it will return all of the ToDos.\r\n\r\n    0 - Active\r\n    1 - Done\r\n    2 - Deleted\r\nNote that deleted ToDos are impossible to retrieve.",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "$ref": "#/components/schemas/Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ToDoResponseModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ToDoResponseModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ToDoResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Update a specific ToDo.",
+        "description": "Example:\r\nFields available to update are Title and TargetCompletionDate.\r\n\r\n    PUT /ToDo\r\n    {\r\n        \"id\": 1,\r\n        \"title\": \"UpdatedTask1\",\r\n        \"targetCompletionDate\": \"2023-02-23T10:52:04.943Z\"\r\n    }\r\nNote that deleted ToDos are impossible to update.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToDoRequestPutModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToDoRequestPutModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToDoRequestPutModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToDoRequestPutModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ToDo/{id}": {
+      "get": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Get a specific ToDo.",
+        "description": "Note that deleted ToDos are impossible to retrieve.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToDoResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToDoResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToDoResponseModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Patch a specific field of a specific ToDo",
+        "description": "Example:\r\n\r\n    PATCH /ToDo\r\n    {\r\n        \"path\": \"/Title\",\r\n        \"op\": \"replace\",\r\n        \"value\": \"PatchedTask1\"\r\n    }",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Delete a specific ToDo.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ToDo/PostTodoStatusUpdate": {
+      "post": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Update the status of a ToDo.",
+        "description": "Example:\r\nChange the status of a specific ToDo to Done.\r\n\r\n    PUT /ToDo\r\n    {\r\n        \"id\": 1,\r\n        \"status\": 1\r\n    }\r\nNote that you can only set status field to 1 (DONE).",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoStatusRequestModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoStatusRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoStatusRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoStatusRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ToDo/PostSubtask": {
+      "post": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Create a subtask for your ToDo.",
+        "description": "Example:\r\n\r\n    POST /Subtask\r\n    {\r\n        \"title\": \"Subtask2\",\r\n        \"toDoId\": 1\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubtaskPostRequestModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubtaskPostRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubtaskPostRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubtaskPostRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ToDo/GetAllSubtasks": {
+      "get": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Get all Subtasks of your ToDo.",
+        "description": "Note that deleted ToDos are impossible to retrieve.",
+        "parameters": [
+          {
+            "name": "todoId",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubtaskResponseModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubtaskResponseModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubtaskResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ToDo/GetSubtask/{id}": {
+      "get": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Get a specific Subtask.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubtaskResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubtaskResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubtaskResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ToDo/PutSubtask": {
+      "put": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Update a specific Subtask.",
+        "description": "Example:\r\n\r\n    PUT /Subtask\r\n    {\r\n        \"id\": 2,\r\n        \"title\": \"UpdatedSubtask2\"\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubtaskPutRequestModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubtaskPutRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubtaskPutRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubtaskPutRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ToDo/DeleteSubtask/{id}": {
+      "delete": {
+        "tags": [
+          "ToDo"
+        ],
+        "summary": "Delete a specific Subtask.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/User/Register": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Register a User",
+        "description": "Example:\r\n\r\n    POST /User\r\n    {\r\n      \"username\": \"FirstUser\",\r\n      \"password\": \"Password123\"\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateRequestModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/LogIn": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Log in as a User",
+        "description": "Example: \r\n\r\n    POST /User/PostToLogin\r\n    {\r\n      \"username\": \"FirstUser\",\r\n      \"password\": \"Password123\"\r\n    }\r\nAfter successful authentication, returns JWT Token.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginRequestModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Operation": {
+        "type": "object",
+        "properties": {
+          "operationType": {
+            "$ref": "#/components/schemas/OperationType"
+          },
+          "path": {
+            "type": "string",
+            "nullable": true
+          },
+          "op": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperationType": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "Status": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "SubtaskPostRequestModel": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "toDoId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubtaskPutRequestModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubtaskRequestModel": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubtaskResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "toDoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ToDoRequestModel": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetCompletionDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "subtasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubtaskRequestModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ToDoRequestPutModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetCompletionDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ToDoResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "targetCompletionDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "subtasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubtaskResponseModel"
+            },
+            "nullable": true
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TodoStatusRequestModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserCreateRequestModel": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserLoginRequestModel": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "basic": {
+        "type": "apiKey",
+        "description": "Basic Authorization header using the Bearer scheme.",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "basic": [ ]
+    }
+  ]
+}
+Time = 2/21/2023 10:51:55 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = POST
+Path = /api/User/Register
+IsSecured = True
+QueryString = 
+RequestBody = {
+  "username": "FirstUser",
+  "password": "Password123"
+}
+Time = 2/21/2023 10:52:42 AM
+RESPONSE INFORMATION: 
+ResponseBody = {"id":1,"userName":null,"password":"F8C991BC8508F6899E1EF80792AFAF8736C0467E5F64B7B313D892748F17903064842C66BBB930EA29BD701F9C9F671A90ECB5316BC078CB6F935A68340609BD","createdAt":"2023-02-21T10:52:45.5305048+04:00","modifiedAt":"2023-02-21T10:52:45.5305059+04:00"}
+Time = 2/21/2023 10:52:45 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = POST
+Path = /api/User/LogIn
+IsSecured = True
+QueryString = 
+RequestBody = {
+  "username": "FirstUser",
+  "password": "Password123"
+}
+Time = 2/21/2023 10:53:23 AM
+RESPONSE INFORMATION: 
+ResponseBody = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkZpcnN0VXNlciIsIlVzZXJJZCI6IjEiLCJuYmYiOjE2NzY5NjI0MDMsImV4cCI6MTY3Njk2MzMwMywiaWF0IjoxNjc2OTYyNDAzLCJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QifQ.B_lCTok8DAFfkWKuvJxutdRVO0d6sgslHJaKJxjC02o
+Time = 2/21/2023 10:53:23 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = POST
+Path = /api/ToDo
+IsSecured = True
+QueryString = 
+RequestBody = {
+  "title": "Task1",
+    "targetCompletionDate": "2023-02-22T10:52:04.943Z",
+    "subtasks": [
+        {
+            "title": "Subtask1"
+        }
+    ]
+}
+Time = 2/21/2023 10:54:04 AM
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 2/21/2023 10:54:04 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /api/ToDo
+IsSecured = True
+QueryString = 
+RequestBody = 
+Time = 2/21/2023 10:54:43 AM
+RESPONSE INFORMATION: 
+ResponseBody = [{"id":1,"title":"Task1","status":0,"targetCompletionDate":"2023-02-22T10:52:04.943","subtasks":[{"id":1,"title":"Subtask1","toDoId":1,"createdAt":"2023-02-21T10:54:04.563","modifiedAt":"2023-02-21T10:54:04.563"}],"userId":1,"createdAt":"2023-02-21T10:54:04.563","modifiedAt":"2023-02-21T10:54:04.563"}]
+Time = 2/21/2023 10:54:43 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /api/ToDo
+IsSecured = True
+QueryString = ?status=0
+RequestBody = 
+Time = 2/21/2023 10:54:56 AM
+RESPONSE INFORMATION: 
+ResponseBody = [{"id":1,"title":"Task1","status":0,"targetCompletionDate":"2023-02-22T10:52:04.943","subtasks":[{"id":1,"title":"Subtask1","toDoId":1,"createdAt":"2023-02-21T10:54:04.563","modifiedAt":"2023-02-21T10:54:04.563"}],"userId":1,"createdAt":"2023-02-21T10:54:04.563","modifiedAt":"2023-02-21T10:54:04.563"}]
+Time = 2/21/2023 10:54:56 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /api/ToDo
+IsSecured = True
+QueryString = ?status=1
+RequestBody = 
+Time = 2/21/2023 10:55:03 AM
+RESPONSE INFORMATION: 
+ResponseBody = []
+Time = 2/21/2023 10:55:03 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /api/ToDo
+IsSecured = True
+QueryString = ?status=2
+RequestBody = 
+Time = 2/21/2023 10:55:10 AM
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 2/21/2023 10:55:10 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = PUT
+Path = /api/ToDo
+IsSecured = True
+QueryString = 
+RequestBody = {
+  "id": 1,
+    "title": "UpdatedTask1",
+    "targetCompletionDate": "2023-02-23T10:52:04.943Z"
+}
+Time = 2/21/2023 10:55:50 AM
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 2/21/2023 10:55:50 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /api/ToDo/1
+IsSecured = True
+QueryString = 
+RequestBody = 
+Time = 2/21/2023 10:56:45 AM
+RESPONSE INFORMATION: 
+ResponseBody = {"id":1,"title":"UpdatedTask1","status":0,"targetCompletionDate":"2023-02-23T10:52:04.943","subtasks":[{"id":1,"title":"Subtask1","toDoId":1,"createdAt":"2023-02-21T10:54:04.563","modifiedAt":"2023-02-21T10:54:04.563"}],"userId":1,"createdAt":"2023-02-21T10:54:04.563","modifiedAt":"2023-02-21T10:55:50.673"}
+Time = 2/21/2023 10:56:45 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = PATCH
+Path = /api/ToDo/1
+IsSecured = True
+QueryString = 
+RequestBody = [
+  {
+    "path": "/Title",
+    "op": "replace",
+    "value": "PatchedTask1"
+  }
+]
+Time = 2/21/2023 10:57:13 AM
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 2/21/2023 10:57:13 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = DELETE
+Path = /api/ToDo/1
+IsSecured = True
+QueryString = 
+RequestBody = 
+Time = 2/21/2023 10:57:38 AM
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 2/21/2023 10:57:38 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = POST
+Path = /api/ToDo
+IsSecured = True
+QueryString = 
+RequestBody = {
+  "title": "Task2",
+    "targetCompletionDate": "2023-02-22T10:52:04.943Z",
+    "subtasks": [
+        {
+            "title": "Subtask2.1"
+        }
+    ]
+}
+Time = 2/21/2023 10:58:23 AM
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 2/21/2023 10:58:23 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /api/ToDo
+IsSecured = True
+QueryString = ?status=2
+RequestBody = 
+Time = 2/21/2023 10:58:57 AM
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 2/21/2023 10:58:57 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /api/ToDo
+IsSecured = True
+QueryString = ?status=1
+RequestBody = 
+Time = 2/21/2023 10:59:03 AM
+RESPONSE INFORMATION: 
+ResponseBody = []
+Time = 2/21/2023 10:59:03 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /api/ToDo
+IsSecured = True
+QueryString = ?status=0
+RequestBody = 
+Time = 2/21/2023 10:59:10 AM
+RESPONSE INFORMATION: 
+ResponseBody = [{"id":2,"title":"Task2","status":0,"targetCompletionDate":"2023-02-22T10:52:04.943","subtasks":[{"id":2,"title":"Subtask2.1","toDoId":2,"createdAt":"2023-02-21T10:58:23.96","modifiedAt":"2023-02-21T10:58:23.96"}],"userId":1,"createdAt":"2023-02-21T10:58:23.96","modifiedAt":"2023-02-21T10:58:23.96"}]
+Time = 2/21/2023 10:59:10 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = POST
+Path = /api/ToDo/PostTodoStatusUpdate
+IsSecured = True
+QueryString = 
+RequestBody = {
+  "id": 2,
+    "status": 1
+}
+Time = 2/21/2023 10:59:44 AM
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 2/21/2023 10:59:44 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = POST
+Path = /api/ToDo/PostSubtask
+IsSecured = True
+QueryString = 
+RequestBody = {
+   "title": "Subtask2",
+    "toDoId": 2
+}
+Time = 2/21/2023 11:00:17 AM
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 2/21/2023 11:00:17 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /api/ToDo/GetAllSubtasks
+IsSecured = True
+QueryString = ?todoId=2
+RequestBody = 
+Time = 2/21/2023 11:00:31 AM
+RESPONSE INFORMATION: 
+ResponseBody = [{"id":2,"title":"Subtask2.1","toDoId":2,"createdAt":"2023-02-21T10:58:23.96","modifiedAt":"2023-02-21T10:58:23.96"},{"id":3,"title":"Subtask2","toDoId":2,"createdAt":"2023-02-21T11:00:17.777","modifiedAt":"2023-02-21T11:00:17.777"}]
+Time = 2/21/2023 11:00:32 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = GET
+Path = /api/ToDo/GetSubtask/3
+IsSecured = True
+QueryString = 
+RequestBody = 
+Time = 2/21/2023 11:00:59 AM
+RESPONSE INFORMATION: 
+ResponseBody = {"id":3,"title":"Subtask2","toDoId":2,"createdAt":"2023-02-21T11:00:17.777","modifiedAt":"2023-02-21T11:00:17.777"}
+Time = 2/21/2023 11:01:00 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = PUT
+Path = /api/ToDo/PutSubtask
+IsSecured = True
+QueryString = 
+RequestBody = {
+  "id": 2,
+    "title": "UpdatedSubtask2"
+}
+Time = 2/21/2023 11:01:19 AM
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 2/21/2023 11:01:19 AM
+REQUEST INFORMATION: 
+IP = ::1
+Address = https
+Method = DELETE
+Path = /api/ToDo/DeleteSubtask/3
+IsSecured = True
+QueryString = 
+RequestBody = 
+Time = 2/21/2023 11:01:37 AM
+RESPONSE INFORMATION: 
+ResponseBody = 
+Time = 2/21/2023 11:01:37 AM

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Users\" />
+    <None Remove="Todos\" />
+    <None Remove="Subtasks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Users\" />
+    <Folder Include="Todos\" />
+    <Folder Include="Subtasks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="7.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Todo.Domain\Todo.Domain.csproj" />
+    <ProjectReference Include="..\Todo.Persistence\Todo.Persistence.csproj" />
+    <ProjectReference Include="..\Todo.Application\Todo.Application.csproj" />
+  </ItemGroup>
+</Project>
