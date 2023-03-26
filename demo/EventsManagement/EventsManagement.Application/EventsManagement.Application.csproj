@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Users\" />
+		<None Remove="Events\" />
+		<None Remove="Users\Repositories\" />
+		<None Remove="Events\Repositories\" />
+		<None Remove="Users\Requests\" />
+		<None Remove="Users\Responses\" />
+		<None Remove="Events\Requests\" />
+		<None Remove="Events\Responses\" />
+		<None Remove="Transactions\" />
+		<None Remove="Transactions\Repositories\" />
+		<None Remove="Transactions\Responses\" />
+		<None Remove="Periods\" />
+		<None Remove="Periods\Repositories\" />
+		<None Remove="Periods\Requests\" />
+		<None Remove="ExceptionHandling\" />
+		<None Remove="ExceptionHandling\Custom Exceptions\" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Users\" />
+		<Folder Include="Events\" />
+		<Folder Include="Users\Repositories\" />
+		<Folder Include="Events\Repositories\" />
+		<Folder Include="Users\Requests\" />
+		<Folder Include="Users\Responses\" />
+		<Folder Include="Events\Requests\" />
+		<Folder Include="Events\Responses\" />
+		<Folder Include="Transactions\" />
+		<Folder Include="Transactions\Repositories\" />
+		<Folder Include="Transactions\Responses\" />
+		<Folder Include="Periods\" />
+		<Folder Include="Periods\Repositories\" />
+		<Folder Include="Periods\Requests\" />
+		<Folder Include="ExceptionHandling\" />
+		<Folder Include="ExceptionHandling\Custom Exceptions\" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\EventsManagement.Domain\EventsManagement.Domain.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Mapster" Version="6.5.1" />
+		<PackageReference Include="Mapster.Core" Version="1.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="7.0.4" />
+		<PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+	</ItemGroup>
+</Project>

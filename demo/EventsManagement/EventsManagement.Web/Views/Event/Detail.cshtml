@@ -1,0 +1,97 @@
+﻿
+@using EventsManagement.Domain.Users
+@using Microsoft.AspNetCore.Identity
+@model EventsManagement.Application.Events.Responses.EventAdmittedDetailedResponseModel
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Portfolio Item Heading -->
+    <h1 class="my-4">
+        @Model.Title
+        <small>in @Model.Location</small>
+    </h1>
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+
+        <div class="col-md-8">
+            @*<img class="img-fluid" src="https://via.placeholder.com/750x500" alt="">*@
+            <img class="img-fluid" src="https://assets-img.primaverasound.com/1440x620/psweb/3ti2za5comdncowcxwly_1568794488263.png" alt="">
+        </div>
+
+        <div class="col-md-4">
+            <h3 class="my-3">About the Event</h3>
+            <p>@Model.Description</p>
+            <h3 class="my-3">Event Details</h3>
+            <ul>
+                <li>Ticket Price:$@Model.TicketPrice</li>
+                <li>Location: @Model.Location</li>
+                <li>StartDate: @Model.StartDateTime </li>
+                <li>EndDate: @Model.EndDateTime</li>
+            </ul>
+        </div>
+
+        @inject SignInManager<User> SignInManager
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @if (ViewBag.AreAvailableTickets)
+            {
+                <form method="post" asp-controller="Transaction" asp-action="Buy">
+                    <input type="hidden" name="eventId" value="@Model.Id"/>
+                    <button type="submit" class="btn btn-primary">Buy</button>
+                </form>
+
+                @if (ViewBag.IsBooked == true)
+                {
+                    <form method="post" asp-controller="Transaction" asp-action="CancelBooking">
+                        <input type="hidden" name="eventId" value="@Model.Id"/>
+                        <button type="submit" class="btn btn-danger">Cancel Booking</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" asp-controller="Transaction" asp-action="Book">
+                        <input type="hidden" name="eventId" value="@Model.Id"/>
+                        <button type="submit" class="btn btn-primary">Book</button>
+                    </form>
+                }
+            }
+        }
+    </div>
+
+    <!-- /.row -->
+    <!-- Related Projects Row -->
+        @*<h3 class="my-4">Related Projects</h3>
+
+        <div class="row">
+
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a href="#">
+                    <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
+                </a>
+            </div>
+
+        </div>*@
+
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
