@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>dotnet-EventsManagement.ArchiveWorker-087d5518-c2b1-461f-aea3-f04e8cf0c1fc</UserSecretsId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\EventsManagement.Application\EventsManagement.Application.csproj"/>
+	</ItemGroup>
+</Project>

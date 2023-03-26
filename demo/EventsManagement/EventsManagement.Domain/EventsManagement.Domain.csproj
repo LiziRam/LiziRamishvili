@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Users\"/>
+		<None Remove="Events\"/>
+		<None Remove="Base\"/>
+		<None Remove="Transactions\"/>
+		<None Remove="Periods\"/>
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Users\"/>
+		<Folder Include="Events\"/>
+		<Folder Include="Base\"/>
+		<Folder Include="Transactions\"/>
+		<Folder Include="Periods\"/>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.15"/>
+	</ItemGroup>
+</Project>

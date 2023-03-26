@@ -1,0 +1,21 @@
+﻿@model EventsManagement.Application.Periods.Requests.PeriodEditRequestModel
+
+<form method="post" asp-controller="Manager" asp-action="EditPeriods">
+
+    <div class="form-group">
+        <label asp-for="EditPeriod">Edit Period</label>
+        <input asp-for="EditPeriod" class="form-control" placeholder="Edit Period">
+      
+        <span asp-validation-for="EditPeriod" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BookingPeriod">Booking Period</label>
+        <input asp-for="BookingPeriod" class="form-control" placeholder="Booking Period">
+       
+        <span asp-validation-for="BookingPeriod" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
